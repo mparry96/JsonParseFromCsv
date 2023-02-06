@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "6fW0XFZ9KLT0dZ8UaJX2JFYLbdyMvbiZgVqCiruKXZe82VjnFzM46vlV7mFokFbRkRbjsaMXSj9B4NpSQDoADg==",
+  "success": true,
+  "projectFilePath": "D:\\Martin Folder\\Github\\JsonParseFromCsv\\JsonParseFromCsv\\JsonParseFromCsv.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MParry\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
