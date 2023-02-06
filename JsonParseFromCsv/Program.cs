@@ -6,34 +6,44 @@ namespace JsonParseFromCsv
     {
         static void Main(string[] args)
         {
-            // Setup Parameters
-            string[] specificColumns =
+            var currentDir = System.IO.Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+
+            Console.WriteLine("Current Directory: " + currentDir);
+
+            string inputPath = currentDir + @"\input.csv";
+            string outputPath = currentDir + @"\output.csv";
+            string specPath = currentDir + @"\spec.txt";
+
+            if (File.Exists(inputPath) && File.Exists(specPath))
             {
-                "UserId",
-                "CreationTime",
-                "WorkSpaceName",
-                "DatasetName",
-                "ReportName",
-                "DistributionMethod",
-                "ConsumptionMethod",
-                "ArtifactKind"
-            };
-            string inputPath = @"C:\Users\MParry\OneDrive - Warburtons\Desktop\Total Report Usage.csv";
-            string outputPath = @"C:\Users\MParry\OneDrive - Warburtons\Desktop\Output.csv";
+                try
+                {
+                    string[] specificColumns = File.ReadAllText(specPath).Split(Environment.NewLine)[0].Split("|"); // puts csv into an array
+                    string textInput = File.ReadAllText(inputPath); // Reads input csv to string.
+                    string[] TextArray = textInput.Split(Environment.NewLine); // puts csv into an array
 
+                    string resultCSV = ProcessInputToString(TextArray, specificColumns); // Loops through the array, parses the data,and returns a string
 
-            string textInput = File.ReadAllText(inputPath); // Reads input csv to string.
-            string[] TextArray = textInput.Split(Environment.NewLine); // puts csv into an array
+                    File.WriteAllText(outputPath, resultCSV); // writes the resulting csv file
 
-            string resultCSV = ProcessInputToString(TextArray, specificColumns); // Loops through the array, parses the data,and returns a string
+                    Console.WriteLine("All Done, see output.csv");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
 
-            File.WriteAllText(outputPath, resultCSV); // writes the resulting csv file
+                }
 
-            Console.WriteLine("Finished");
+            }
+            else
+            {
+                Console.WriteLine("Error, input.csv or spec.txt not found");
+            }
+
             Console.ReadKey();
         }
 
-        public static string ProcessInputToString(string [] TextArray, string [] specificColumns)
+        public static string ProcessInputToString(string[] TextArray, string[] specificColumns)
         {
             List<string> AllLines = new List<string>();
             int counter = 0;
@@ -77,7 +87,7 @@ namespace JsonParseFromCsv
             }
             headingBuilder = headingBuilder.Remove(headingBuilder.Length - 1);
 
-
+            Console.WriteLine("Finishing up...");
             string Result = headingBuilder + "\r\n" + String.Join(String.Empty, AllLines.ToArray()); // Joins header & body list content to one big string
             return Result;
         }
