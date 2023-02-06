@@ -1,4 +1,6 @@
 # JsonParseFromCsv
-Parses Json from csv files into a new csv file
+Parses Json from csv files into a new csv.
 
-Before running, set the "specificColumns" array with the requried columns, and set the input and output file paths.
+Before executing:
+Create spec.txt in the same directory as the exe, with pipe separated items (|). Which specifies objects to use from the JSON.
+Add input.csv to the same directory as the exe.
